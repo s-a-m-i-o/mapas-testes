@@ -1,0 +1,457 @@
+
+/* =================================
+   CONFIGURAÇÕES GERAIS
+================================= */
+
+:root {
+    --fundo: #101014;
+    --superficie: #1b1b22;
+    --superficie-hover: #24242e;
+    --roxo: #8b5cf6;
+    --roxo-escuro: #6d42c4;
+    --dourado: #c5a45e;
+    --texto: #f1f0f5;
+    --texto-secundario: #a3a0ad;
+    --borda: #30303a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+button,
+a {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =================================
+   CABEÇALHO
+================================= */
+
+.header {
+    min-height: 75px;
+    padding: 15px 7%;
+    border-bottom: 1px solid var(--borda);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 32px;
+    color: var(--dourado);
+}
+
+.logo h1 {
+    font-size: 20px;
+}
+
+.logo h1 span {
+    color: var(--texto-secundario);
+    font-weight: normal;
+}
+
+.btn-localizacao {
+    background: transparent;
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.btn-localizacao:hover {
+    border-color: var(--roxo);
+    background: var(--superficie);
+}
+
+
+/* =================================
+   CONTEÚDO PRINCIPAL
+================================= */
+
+.container {
+    width: 86%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 0;
+    flex: 1;
+}
+
+.introducao {
+    margin-bottom: 45px;
+}
+
+.tag {
+    color: var(--dourado);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.introducao h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 15px 0;
+}
+
+.introducao p {
+    color: var(--texto-secundario);
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+
+/* =================================
+   TÍTULOS DAS SEÇÕES
+================================= */
+
+.secao-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.secao-titulo h3 {
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.secao-titulo p {
+    color: var(--texto-secundario);
+    font-size: 13px;
+}
+
+.contador {
+    color: var(--dourado);
+    background: #29241a;
+    border: 1px solid #51432b;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+
+/* =================================
+   CARDS DOS MAPAS
+================================= */
+
+.lista-mapas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.card-mapa {
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 22px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.card-mapa:hover {
+    transform: translateY(-4px);
+    border-color: var(--roxo);
+    background: var(--superficie-hover);
+}
+
+.card-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.icone-mapa {
+    width: 42px;
+    height: 42px;
+    background: #302448;
+    color: #b99aff;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 23px;
+}
+
+.numero-mapa {
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.card-mapa h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.card-mapa p {
+    color: var(--texto-secundario);
+    font-size: 13px;
+}
+
+.card-rodape {
+    border-top: 1px solid var(--borda);
+    margin-top: 20px;
+    padding-top: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-rodape span {
+    color: var(--dourado);
+    font-size: 12px;
+}
+
+.card-rodape strong {
+    color: var(--roxo);
+    font-size: 13px;
+}
+
+
+/* =================================
+   PÁGINA DE ENDEREÇOS
+================================= */
+
+.oculto {
+    display: none !important;
+}
+
+.btn-voltar {
+    background: transparent;
+    color: var(--texto-secundario);
+    border: none;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.btn-voltar:hover {
+    color: var(--roxo);
+}
+
+.introducao-detalhes {
+    margin-bottom: 30px;
+}
+
+
+/* =================================
+   PRÉVIA DO MAPA
+================================= */
+
+.mapa-preview {
+    background:
+        linear-gradient(135deg, #29213b, #191922 70%);
+
+    border: 1px solid #46365f;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 45px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.mapa-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.mapa-icone {
+    color: var(--dourado);
+    font-size: 40px;
+}
+
+.mapa-conteudo h3 {
+    margin-bottom: 7px;
+}
+
+.mapa-conteudo p {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.btn-mapa {
+    background: var(--roxo);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.btn-mapa:hover {
+    background: var(--roxo-escuro);
+}
+
+
+/* =================================
+   LISTA DE ENDEREÇOS
+================================= */
+
+.lista-enderecos {
+    display: grid;
+    gap: 12px;
+}
+
+.card-endereco {
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.endereco-info h4 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.endereco-info p {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.endereco-info .bairro {
+    color: var(--dourado);
+    margin-top: 5px;
+}
+
+.btn-rota {
+    background: #302448;
+    color: #c6aaff;
+    border: 1px solid #57417f;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 12px;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.btn-rota:hover {
+    background: var(--roxo);
+    color: white;
+}
+
+
+/* =================================
+   RODAPÉ
+================================= */
+
+.footer {
+    border-top: 1px solid var(--borda);
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.footer span {
+    color: var(--dourado);
+}
+
+
+/* =================================
+   RESPONSIVIDADE
+================================= */
+
+@media (max-width: 600px) {
+
+    .header {
+        padding: 15px 5%;
+    }
+
+    .logo h1 {
+        font-size: 16px;
+    }
+
+    .btn-localizacao {
+        font-size: 11px;
+        padding: 9px;
+    }
+
+    .container {
+        width: 90%;
+        padding: 35px 0;
+    }
+
+    .secao-titulo {
+        align-items: flex-start;
+    }
+
+    .lista-mapas {
+        grid-template-columns: 1fr;
+    }
+
+    .mapa-preview {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-mapa {
+        width: 100%;
+        text-align: center;
+    }
+
+    .card-endereco {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .btn-rota {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
