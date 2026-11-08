@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,54 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Sistema de localização e organização de endereços.">
+    <meta name="description" content="Sistema de localização e organização de endereços de São Carlos.">
 
-    <title>Mapas de Endereços</title>
+    <title>Mapas - São Carlos</title>
 
     <link rel="stylesheet" href="./css/estilos.css">
-
 </head>
 
 <body>
+
+    <!-- CABEÇALHO -->
 
     <header class="header">
 
         <div class="logo">
             <span class="logo-icon">⌖</span>
-            <h1>Mapas<span> São Carlos</span></h1>
+            <h1>MAPA <span>- SÃO CARLOS</span></h1>
         </div>
 
-        <button id="btn-localizacao" class="btn-localizacao">
-            <span>⌖</span> Minha localização
-        </button>
+        <div class="localizacao-area">
+
+            <span id="status-localizacao">
+                Obtendo localização...
+            </span>
+
+            <button id="btn-localizacao" class="btn-localizacao">
+                ⌖ Minha localização
+            </button>
+
+        </div>
 
     </header>
 
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
     <main class="container">
+
 
         <!-- PÁGINA INICIAL -->
 
         <section id="pagina-inicial">
 
             <div class="introducao">
+
                 <span class="tag">LOCALIZAÇÃO E NAVEGAÇÃO</span>
 
                 <h2>Encontre seu próximo destino.</h2>
 
                 <p>
-                    Selecione uma região para consultar os endereços
+                    Selecione um bairro para consultar os endereços
                     disponíveis e iniciar sua navegação.
                 </p>
+
             </div>
 
+
             <div class="secao-titulo">
+
                 <div>
-                    <h3>Regiões disponíveis</h3>
+                    <h3>Bairros</h3>
                     <p>Selecione um mapa para continuar.</p>
                 </div>
 
-                <span id="total-mapas" class="contador">0 mapas</span>
+                <span id="total-mapas" class="contador">
+                    0 mapas
+                </span>
+
             </div>
+
 
             <div id="lista-mapas" class="lista-mapas">
                 <!-- Cards criados pelo JavaScript -->
@@ -62,25 +82,31 @@
         </section>
 
 
+
         <!-- PÁGINA DE ENDEREÇOS -->
 
         <section id="pagina-enderecos" class="oculto">
 
+
             <button id="btn-voltar" class="btn-voltar">
-                ← Voltar para os mapas
+                ← Voltar para os bairros
             </button>
+
+
+            <!-- INFORMAÇÕES DO BAIRRO -->
 
             <div class="introducao introducao-detalhes">
 
-                <span class="tag">REGIÃO SELECIONADA</span>
+                <span class="tag">MAPA SELECIONADO</span>
 
                 <h2 id="titulo-regiao">NOME_DO_BAIRRO</h2>
 
                 <p id="descricao-regiao">
-                    Consulte os endereços disponíveis nesta região.
+                    Consulte os endereços disponíveis neste mapa.
                 </p>
 
             </div>
+
 
 
             <!-- MAPA COMPLETO -->
@@ -92,23 +118,23 @@
                     <span class="mapa-icone">⌖</span>
 
                     <div>
-                        <h3>Mapa da região</h3>
-                        <p>Visualize todos os endereços no mapa completo.</p>
+                        <h3>Rota completa</h3>
+
+                        <p>
+                            Acesse todos os endereços deste mapa
+                            em uma única rota.
+                        </p>
                     </div>
 
                 </div>
 
-                <a
-                    id="link-mymaps"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-mapa"
-                >
-                    Abrir mapa completo ↗
+
+                <a id="link-mymaps" href="#" target="_blank" rel="noopener noreferrer" class="btn-mapa">
+                    Abrir rota completa ↗
                 </a>
 
             </div>
+
 
 
             <!-- LISTA DE ENDEREÇOS -->
@@ -117,36 +143,53 @@
 
                 <div>
                     <h3>Endereços cadastrados</h3>
-                    <p>Selecione um endereço para iniciar a navegação.</p>
+
+                    <p>
+                        Selecione um endereço para iniciar a navegação.
+                    </p>
                 </div>
 
-                <span id="total-enderecos" class="contador">0 endereços</span>
+                <span id="total-enderecos" class="contador">
+                    0 endereços
+                </span>
 
             </div>
+
 
             <div id="lista-enderecos" class="lista-enderecos">
                 <!-- Endereços criados pelo JavaScript -->
             </div>
+
 
         </section>
 
     </main>
 
 
+
+    <!-- RODAPÉ -->
+
     <footer class="footer">
-        <p>Mapas de Endereços · Protótipo 1.0</p>
+
+        <p>MAPAS - SÃO CARLOS · Protótipo 1.0</p>
+
         <span>Encontre o caminho.</span>
+
     </footer>
+
 
 
     <!-- ARQUIVOS DE DADOS -->
 
     <script src="js/mapas.js" defer></script>
+
     <script src="js/enderecos.js" defer></script>
+
 
     <!-- FUNCIONALIDADES -->
 
     <script src="js/main.js" defer></script>
 
 </body>
+
 </html>

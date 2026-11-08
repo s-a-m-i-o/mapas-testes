@@ -18,12 +18,13 @@ const descricaoRegiao = document.querySelector("#descricao-regiao");
 const totalMapas = document.querySelector("#total-mapas");
 const totalEnderecos = document.querySelector("#total-enderecos");
 
-// Botões
+// Botões e links
 const btnVoltar = document.querySelector("#btn-voltar");
 const btnLocalizacao = document.querySelector("#btn-localizacao");
-
-// Link My Maps
 const linkMyMaps = document.querySelector("#link-mymaps");
+
+// Status da localização
+const statusLocalizacao = document.querySelector("#status-localizacao");
 
 
 /* =================================
@@ -31,6 +32,7 @@ const linkMyMaps = document.querySelector("#link-mymaps");
 ================================= */
 
 let mapaSelecionado = null;
+
 let localizacaoUsuario = null;
 
 
@@ -42,22 +44,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     carregarMapas();
 
+    // Solicita localização automaticamente
+    obterLocalizacao();
+
 });
 
 
 /* =================================
-   CRIAR CARDS DOS MAPAS
+   CRIAR CARDS DOS BAIRROS
 ================================= */
 
 function carregarMapas() {
 
     listaMapas.innerHTML = "";
 
-    totalMapas.textContent = `${mapas.length} mapas`;
+    totalMapas.textContent = `${mapas.length} bairros`;
 
     mapas.forEach(mapa => {
 
-        // Conta os endereços deste mapa
+        // Conta os endereços pertencentes ao mapa
         const quantidade = enderecos.filter(endereco => {
 
             return endereco.mapaId === mapa.id;
@@ -83,8 +88,6 @@ function carregarMapas() {
             </div>
 
             <h3>${mapa.nome}</h3>
-
-            <p>${mapa.descricao}</p>
 
             <div class="card-rodape">
 
@@ -118,6 +121,7 @@ function carregarMapas() {
 
 function abrirMapa(id) {
 
+    // Procura o mapa pelo ID
     mapaSelecionado = mapas.find(mapa => {
 
         return mapa.id === id;
@@ -137,20 +141,22 @@ function abrirMapa(id) {
     // Atualiza informações
     tituloRegiao.textContent = mapaSelecionado.nome;
 
-    descricaoRegiao.textContent = mapaSelecionado.descricao;
-
-
-    // Atualiza link do My Maps
-    linkMyMaps.href = mapaSelecionado.myMaps;
+    descricaoRegiao.textContent =
+        "Consulte os endereços disponíveis neste mapa.";
 
 
     // Carrega endereços
     carregarEnderecos(id);
 
 
+    // Atualiza o link da rota completa
+    atualizarLinkRotaCompleta();
+
+
     window.scrollTo({
 
         top: 0,
+
         behavior: "smooth"
 
     });
@@ -167,7 +173,7 @@ function carregarEnderecos(mapaId) {
     listaEnderecos.innerHTML = "";
 
 
-    // Filtra os endereços do mapa
+    // Filtra os endereços do mapa selecionado
     const enderecosFiltrados = enderecos.filter(endereco => {
 
         return endereco.mapaId === mapaId;
@@ -184,7 +190,7 @@ function carregarEnderecos(mapaId) {
     if (enderecosFiltrados.length === 0) {
 
         listaEnderecos.innerHTML = `
-            <p>Nenhum endereço cadastrado nesta região.</p>
+            <p>Nenhum endereço cadastrado neste mapa.</p>
         `;
 
         return;
@@ -200,15 +206,15 @@ function carregarEnderecos(mapaId) {
         card.classList.add("card-endereco");
 
 
-        // Monta endereço completo
+        // Monta o destino
         const destino = montarDestino(endereco);
 
 
-        // Cria link de navegação
+        // Cria link individual
         const linkRota = criarLinkRota(destino);
 
 
-        // Monta setor e bairro
+        // Junta setor e bairro
         const informacaoRegiao = [
 
             endereco.setor,
@@ -269,7 +275,7 @@ function carregarEnderecos(mapaId) {
 
 function montarDestino(endereco) {
 
-    // Prioriza coordenadas
+    // Prioriza coordenadas quando disponíveis
     if (
 
         Number.isFinite(endereco.latitude) &&
@@ -308,7 +314,7 @@ function montarDestino(endereco) {
 
 
 /* =================================
-   CRIAR LINK DO GOOGLE MAPS
+   CRIAR LINK DE ROTA INDIVIDUAL
 ================================= */
 
 function criarLinkRota(destino) {
@@ -317,13 +323,14 @@ function criarLinkRota(destino) {
 
         api: "1",
 
-        destination: destino
+        destination: destino,
+
+        travelmode: "driving"
 
     });
 
 
-    // Utiliza localização do usuário,
-    // caso esteja disponível
+    // Usa localização atual como origem
     if (localizacaoUsuario) {
 
         parametros.set(
@@ -338,6 +345,118 @@ function criarLinkRota(destino) {
 
 
     return `https://www.google.com/maps/dir/?${parametros.toString()}`;
+
+}
+
+
+/* =================================
+   CRIAR LINK DA ROTA COMPLETA
+================================= */
+
+function criarLinkRotaCompleta(mapaId) {
+
+    // Busca todos os endereços do mapa
+    const enderecosDoMapa = enderecos.filter(endereco => {
+
+        return endereco.mapaId === mapaId;
+
+    });
+
+
+    // Não cria rota sem endereços
+    if (enderecosDoMapa.length === 0) {
+
+        return null;
+
+    }
+
+
+    // O último endereço será o destino final
+    const ultimoEndereco = enderecosDoMapa[
+        enderecosDoMapa.length - 1
+    ];
+
+
+    const destinoFinal = montarDestino(ultimoEndereco);
+
+
+    // Prepara os parâmetros da rota
+    const parametros = new URLSearchParams({
+
+        api: "1",
+
+        destination: destinoFinal,
+
+        travelmode: "driving"
+
+    });
+
+
+    // Adiciona a localização do usuário como origem
+    if (localizacaoUsuario) {
+
+        parametros.set(
+
+            "origin",
+
+            `${localizacaoUsuario.latitude},${localizacaoUsuario.longitude}`
+
+        );
+
+    }
+
+
+    // Todos os endereços anteriores serão paradas intermediárias
+    const pontosIntermediarios = enderecosDoMapa
+        .slice(0, -1)
+        .map(endereco => montarDestino(endereco));
+
+
+    // Adiciona as paradas na rota
+    if (pontosIntermediarios.length > 0) {
+
+        parametros.set(
+
+            "waypoints",
+
+            pontosIntermediarios.join("|")
+
+        );
+
+    }
+
+
+    return `https://www.google.com/maps/dir/?${parametros.toString()}`;
+
+}
+
+
+/* =================================
+   ATUALIZAR ROTA COMPLETA
+================================= */
+
+function atualizarLinkRotaCompleta() {
+
+    if (!mapaSelecionado) return;
+
+
+    const link = criarLinkRotaCompleta(mapaSelecionado.id);
+
+
+    if (!link) {
+
+        linkMyMaps.removeAttribute("href");
+
+        linkMyMaps.textContent = "Nenhum endereço disponível";
+
+        return;
+
+    }
+
+
+    linkMyMaps.href = link;
+
+    linkMyMaps.textContent = "Abrir rota completa ↗";
 
 }
 
@@ -367,23 +486,28 @@ btnVoltar.addEventListener("click", () => {
 
 
 /* =================================
-   LOCALIZAÇÃO DO USUÁRIO
+   OBTER LOCALIZAÇÃO DO USUÁRIO
 ================================= */
 
-btnLocalizacao.addEventListener("click", () => {
+function obterLocalizacao() {
 
+    // Verifica suporte do navegador
     if (!navigator.geolocation) {
 
-        alert("Seu navegador não suporta geolocalização.");
+        statusLocalizacao.textContent =
+            "Geolocalização não suportada";
 
         return;
 
     }
 
 
+    btnLocalizacao.disabled = true;
+
     btnLocalizacao.textContent = "Localizando...";
 
-    btnLocalizacao.disabled = true;
+    statusLocalizacao.textContent =
+        "Obtendo sua localização...";
 
 
     navigator.geolocation.getCurrentPosition(
@@ -400,26 +524,23 @@ btnLocalizacao.addEventListener("click", () => {
             };
 
 
-            btnLocalizacao.textContent = "✓ Localização encontrada";
+            statusLocalizacao.textContent =
+                "Localização encontrada";
+
+
+            btnLocalizacao.textContent =
+                "✓ Localização ativa";
+
 
             btnLocalizacao.disabled = false;
 
 
-            alert(
-
-                `Sua localização foi encontrada!\n\n` +
-
-                `Latitude: ${localizacaoUsuario.latitude}\n` +
-
-                `Longitude: ${localizacaoUsuario.longitude}`
-
-            );
-
-
-            // Atualiza links dos endereços
+            // Atualiza links individuais e rota completa
             if (mapaSelecionado) {
 
                 carregarEnderecos(mapaSelecionado.id);
+
+                atualizarLinkRotaCompleta();
 
             }
 
@@ -429,36 +550,38 @@ btnLocalizacao.addEventListener("click", () => {
         // ERRO
         (erro) => {
 
-            btnLocalizacao.textContent = "⌖ Minha localização";
+            btnLocalizacao.textContent =
+                "⌖ Minha localização";
 
             btnLocalizacao.disabled = false;
 
 
-            let mensagem = "Não foi possível obter sua localização.";
+            let mensagem =
+                "Não foi possível obter a localização";
 
 
             if (erro.code === 1) {
 
-                mensagem = "Você não autorizou o acesso à localização.";
+                mensagem = "Permissão de localização negada";
 
             }
 
 
             if (erro.code === 2) {
 
-                mensagem = "Sua localização está indisponível.";
+                mensagem = "Localização indisponível";
 
             }
 
 
             if (erro.code === 3) {
 
-                mensagem = "O tempo para localizar você terminou.";
+                mensagem = "Tempo de localização esgotado";
 
             }
 
 
-            alert(mensagem);
+            statusLocalizacao.textContent = mensagem;
 
         },
 
@@ -468,12 +591,23 @@ btnLocalizacao.addEventListener("click", () => {
 
             enableHighAccuracy: true,
 
-            timeout: 10000,
+            timeout: 15000,
 
             maximumAge: 0
 
         }
 
     );
+
+}
+
+
+/* =================================
+   BOTÃO PARA TENTAR LOCALIZAR NOVAMENTE
+================================= */
+
+btnLocalizacao.addEventListener("click", () => {
+
+    obterLocalizacao();
 
 });

@@ -7,11 +7,15 @@
     --fundo: #101014;
     --superficie: #1b1b22;
     --superficie-hover: #24242e;
+
     --roxo: #8b5cf6;
     --roxo-escuro: #6d42c4;
+
     --dourado: #c5a45e;
+
     --texto: #f1f0f5;
     --texto-secundario: #a3a0ad;
+
     --borda: #30303a;
 }
 
@@ -24,8 +28,11 @@
 body {
     background: var(--fundo);
     color: var(--texto);
+
     font-family: Arial, Helvetica, sans-serif;
+
     min-height: 100vh;
+
     display: flex;
     flex-direction: column;
 }
@@ -51,12 +58,15 @@ a {
 
 .header {
     min-height: 75px;
+
     padding: 15px 7%;
+
     border-bottom: 1px solid var(--borda);
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 15px;
 }
 
@@ -73,6 +83,7 @@ a {
 
 .logo h1 {
     font-size: 20px;
+    letter-spacing: 1px;
 }
 
 .logo h1 span {
@@ -80,18 +91,43 @@ a {
     font-weight: normal;
 }
 
+
+/* =================================
+   LOCALIZAÇÃO NO CABEÇALHO
+================================= */
+
+.localizacao-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#status-localizacao {
+    color: var(--texto-secundario);
+    font-size: 11px;
+}
+
 .btn-localizacao {
     background: transparent;
     color: var(--texto);
+
     border: 1px solid var(--borda);
+
     padding: 10px 15px;
+
     border-radius: 8px;
+
     transition: 0.2s;
 }
 
 .btn-localizacao:hover {
     border-color: var(--roxo);
     background: var(--superficie);
+}
+
+.btn-localizacao:disabled {
+    opacity: 0.6;
+    cursor: wait;
 }
 
 
@@ -102,8 +138,11 @@ a {
 .container {
     width: 86%;
     max-width: 1200px;
+
     margin: 0 auto;
+
     padding: 50px 0;
+
     flex: 1;
 }
 
@@ -113,19 +152,24 @@ a {
 
 .tag {
     color: var(--dourado);
+
     font-size: 11px;
     font-weight: bold;
+
     letter-spacing: 2px;
 }
 
 .introducao h2 {
     font-size: clamp(28px, 4vw, 42px);
+
     margin: 15px 0;
 }
 
 .introducao p {
     color: var(--texto-secundario);
+
     line-height: 1.6;
+
     max-width: 600px;
 }
 
@@ -138,7 +182,9 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 15px;
+
     margin-bottom: 20px;
 }
 
@@ -154,37 +200,53 @@ a {
 
 .contador {
     color: var(--dourado);
+
     background: #29241a;
+
     border: 1px solid #51432b;
+
     padding: 7px 12px;
+
     border-radius: 20px;
+
     font-size: 12px;
+
     white-space: nowrap;
 }
 
 
 /* =================================
-   CARDS DOS MAPAS
+   CARDS DOS BAIRROS
 ================================= */
 
 .lista-mapas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+
     gap: 20px;
 }
 
 .card-mapa {
     background: var(--superficie);
+
     border: 1px solid var(--borda);
+
     border-radius: 12px;
+
     padding: 22px;
+
     cursor: pointer;
+
     transition: 0.25s;
 }
 
 .card-mapa:hover {
     transform: translateY(-4px);
+
     border-color: var(--roxo);
+
     background: var(--superficie-hover);
 }
 
@@ -192,14 +254,18 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-bottom: 25px;
 }
 
 .icone-mapa {
     width: 42px;
     height: 42px;
+
     background: #302448;
+
     color: #b99aff;
+
     border-radius: 10px;
 
     display: flex;
@@ -226,7 +292,9 @@ a {
 
 .card-rodape {
     border-top: 1px solid var(--borda);
+
     margin-top: 20px;
+
     padding-top: 15px;
 
     display: flex;
@@ -255,9 +323,13 @@ a {
 
 .btn-voltar {
     background: transparent;
+
     color: var(--texto-secundario);
+
     border: none;
+
     margin-bottom: 30px;
+
     font-size: 14px;
 }
 
@@ -271,7 +343,7 @@ a {
 
 
 /* =================================
-   PRÉVIA DO MAPA
+   PRÉVIA DA ROTA COMPLETA
 ================================= */
 
 .mapa-preview {
@@ -279,13 +351,17 @@ a {
         linear-gradient(135deg, #29213b, #191922 70%);
 
     border: 1px solid #46365f;
+
     border-radius: 14px;
+
     padding: 25px;
+
     margin-bottom: 45px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 20px;
 }
 
@@ -306,17 +382,25 @@ a {
 
 .mapa-conteudo p {
     color: var(--texto-secundario);
+
     font-size: 13px;
+
     line-height: 1.5;
 }
 
 .btn-mapa {
     background: var(--roxo);
+
     color: white;
+
     padding: 12px 18px;
+
     border-radius: 8px;
+
     font-size: 13px;
+
     white-space: nowrap;
+
     transition: 0.2s;
 }
 
@@ -336,13 +420,17 @@ a {
 
 .card-endereco {
     background: var(--superficie);
+
     border: 1px solid var(--borda);
+
     border-radius: 10px;
+
     padding: 20px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 15px;
 }
 
@@ -353,7 +441,9 @@ a {
 
 .endereco-info p {
     color: var(--texto-secundario);
+
     font-size: 13px;
+
     line-height: 1.5;
 }
 
@@ -362,14 +452,35 @@ a {
     margin-top: 5px;
 }
 
+.endereco-info .observacao {
+    color: var(--dourado);
+
+    margin-top: 10px;
+
+    padding: 8px 10px;
+
+    background: #29241a;
+
+    border-left: 3px solid var(--dourado);
+
+    border-radius: 4px;
+}
+
 .btn-rota {
     background: #302448;
+
     color: #c6aaff;
+
     border: 1px solid #57417f;
+
     border-radius: 8px;
+
     padding: 10px 15px;
+
     font-size: 12px;
+
     white-space: nowrap;
+
     transition: 0.2s;
 }
 
@@ -385,31 +496,22 @@ a {
 
 .footer {
     border-top: 1px solid var(--borda);
+
     padding: 22px 7%;
+
     display: flex;
     justify-content: space-between;
+
     gap: 15px;
 
     color: var(--texto-secundario);
+
     font-size: 12px;
 }
 
 .footer span {
     color: var(--dourado);
 }
-
-
-/* OBSERVAÇÕES DOS ENDEREÇOS */
-
-.observacao {
-    color: var(--dourado) !important;
-    margin-top: 10px;
-    padding: 8px 10px;
-    background: #29241a;
-    border-left: 3px solid var(--dourado);
-    border-radius: 4px;
-}
-
 
 
 /* =================================
@@ -420,10 +522,22 @@ a {
 
     .header {
         padding: 15px 5%;
+
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .logo h1 {
-        font-size: 16px;
+        font-size: 17px;
+    }
+
+    .localizacao-area {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #status-localizacao {
+        max-width: 50%;
     }
 
     .btn-localizacao {
@@ -461,10 +575,12 @@ a {
 
     .btn-rota {
         width: 100%;
+        text-align: center;
     }
 
     .footer {
         flex-direction: column;
         text-align: center;
     }
+
 }
