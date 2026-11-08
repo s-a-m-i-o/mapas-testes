@@ -399,6 +399,19 @@ a {
 }
 
 
+/* OBSERVAÇÕES DOS ENDEREÇOS */
+
+.observacao {
+    color: var(--dourado) !important;
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #29241a;
+    border-left: 3px solid var(--dourado);
+    border-radius: 4px;
+}
+
+
+
 /* =================================
    RESPONSIVIDADE
 ================================= */

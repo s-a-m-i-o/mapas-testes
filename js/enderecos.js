@@ -1,15 +1,22 @@
 
 const enderecos = [
 
-    // MAPA 01
+    // =================================
+    // MAPA 01 — SÃO CARLOS
+    // =================================
 
     {
         id: 1,
         mapaId: 1,
-        rua: "NOME_DA_RUA",
-        numero: "100",
-        bairro: "NOME_DO_BAIRRO",
+        rua: "Rua Antônio Fischer dos Santos",
+        numero: "231",
+        bairro: "Jardim Paulistano",
+        setor: "N-3",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "13564-390",
         complemento: "",
+        observacao: "",
         latitude: null,
         longitude: null
     },
@@ -17,10 +24,15 @@ const enderecos = [
     {
         id: 2,
         mapaId: 1,
-        rua: "NOME_DA_RUA",
-        numero: "250",
-        bairro: "NOME_DO_BAIRRO",
-        complemento: "Casa",
+        rua: "Rua Norberto Antônio Chiavini Dinucci",
+        numero: "74",
+        bairro: "Santa Angelina",
+        setor: "F-2",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "",
+        complemento: "",
+        observacao: "",
         latitude: null,
         longitude: null
     },
@@ -28,63 +40,79 @@ const enderecos = [
     {
         id: 3,
         mapaId: 1,
-        rua: "NOME_DA_RUA",
-        numero: "350",
-        bairro: "NOME_DO_BAIRRO",
+        rua: "Rua Maria das Graças Tagliatella Custódio",
+        numero: "1219",
+        bairro: "",
+        setor: "",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "",
         complemento: "",
+        observacao: "",
         latitude: null,
         longitude: null
     },
 
-
-    // MAPA 02
-
     {
         id: 4,
-        mapaId: 2,
-        rua: "NOME_DA_RUA",
-        numero: "50",
-        bairro: "NOME_DO_BAIRRO",
+        mapaId: 1,
+        rua: "Avenida Maranhão",
+        numero: "741",
+        bairro: "Jardim Pacaembu",
+        setor: "S-3",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "",
         complemento: "",
+        observacao: "",
         latitude: null,
         longitude: null
     },
 
     {
         id: 5,
-        mapaId: 2,
-        rua: "NOME_DA_RUA",
-        numero: "180",
-        bairro: "NOME_DO_BAIRRO",
+        mapaId: 1,
+        rua: "Rua Riachuelo",
+        numero: "384",
+        bairro: "Centro",
+        setor: "C-1",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "13560-110",
         complemento: "",
+        observacao: "",
         latitude: null,
         longitude: null
     },
-
-
-    // MAPA 03
 
     {
         id: 6,
-        mapaId: 3,
-        rua: "NOME_DA_RUA",
-        numero: "70",
-        bairro: "NOME_DO_BAIRRO",
+        mapaId: 1,
+        rua: "Rua Costa Rica",
+        numero: "260",
+        bairro: "Vila Brasília (Costa do Sol)",
+        setor: "",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "13566-690",
         complemento: "",
+        observacao: "",
         latitude: null,
         longitude: null
     },
 
-
-    // MAPA 04
-
     {
         id: 7,
-        mapaId: 4,
-        rua: "NOME_DA_RUA",
-        numero: "200",
-        bairro: "NOME_DO_BAIRRO",
+        mapaId: 1,
+        rua: "Rua Maria Eugênio Fabiano",
+        numero: "492",
+        bairro: "Antenor Garcia",
+        setor: "",
+        cidade: "São Carlos",
+        estado: "SP",
+        cep: "",
         complemento: "",
+        observacao: "Casal de crianças surdas",
         latitude: null,
         longitude: null
     }

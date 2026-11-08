@@ -30,10 +30,7 @@ const linkMyMaps = document.querySelector("#link-mymaps");
    VARIÁVEIS
 ================================= */
 
-// Armazena o mapa selecionado
 let mapaSelecionado = null;
-
-// Armazena a localização do usuário
 let localizacaoUsuario = null;
 
 
@@ -60,9 +57,11 @@ function carregarMapas() {
 
     mapas.forEach(mapa => {
 
-        // Conta os endereços pertencentes ao mapa
+        // Conta os endereços deste mapa
         const quantidade = enderecos.filter(endereco => {
+
             return endereco.mapaId === mapa.id;
+
         }).length;
 
 
@@ -72,6 +71,7 @@ function carregarMapas() {
         card.classList.add("card-mapa");
 
         card.innerHTML = `
+
             <div class="card-topo">
 
                 <div class="icone-mapa">⌖</div>
@@ -93,10 +93,11 @@ function carregarMapas() {
                 <strong>Visualizar →</strong>
 
             </div>
+
         `;
 
 
-        // Ao clicar, abre os endereços
+        // Abre o mapa ao clicar
         card.addEventListener("click", () => {
 
             abrirMapa(mapa.id);
@@ -117,42 +118,41 @@ function carregarMapas() {
 
 function abrirMapa(id) {
 
-    // Procura o mapa pelo ID
     mapaSelecionado = mapas.find(mapa => {
+
         return mapa.id === id;
+
     });
 
 
-    // Se não encontrar, interrompe
     if (!mapaSelecionado) return;
 
 
-    // Esconde a página inicial
+    // Alterna as páginas
     paginaInicial.classList.add("oculto");
 
-
-    // Mostra a página de endereços
     paginaEnderecos.classList.remove("oculto");
 
 
-    // Atualiza as informações
+    // Atualiza informações
     tituloRegiao.textContent = mapaSelecionado.nome;
 
     descricaoRegiao.textContent = mapaSelecionado.descricao;
 
 
-    // Atualiza o link do My Maps
+    // Atualiza link do My Maps
     linkMyMaps.href = mapaSelecionado.myMaps;
 
 
-    // Carrega os endereços
+    // Carrega endereços
     carregarEnderecos(id);
 
 
-    // Volta ao início da página
     window.scrollTo({
+
         top: 0,
         behavior: "smooth"
+
     });
 
 }
@@ -167,7 +167,7 @@ function carregarEnderecos(mapaId) {
     listaEnderecos.innerHTML = "";
 
 
-    // Filtra os endereços pelo mapa selecionado
+    // Filtra os endereços do mapa
     const enderecosFiltrados = enderecos.filter(endereco => {
 
         return endereco.mapaId === mapaId;
@@ -175,12 +175,12 @@ function carregarEnderecos(mapaId) {
     });
 
 
-    // Atualiza o contador
+    // Atualiza contador
     totalEnderecos.textContent =
         `${enderecosFiltrados.length} endereços`;
 
 
-    // Se não houver endereços
+    // Verifica se existem endereços
     if (enderecosFiltrados.length === 0) {
 
         listaEnderecos.innerHTML = `
@@ -200,15 +200,26 @@ function carregarEnderecos(mapaId) {
         card.classList.add("card-endereco");
 
 
-        // Monta o endereço para o Google Maps
+        // Monta endereço completo
         const destino = montarDestino(endereco);
 
 
-        // Cria o link de navegação
+        // Cria link de navegação
         const linkRota = criarLinkRota(destino);
 
 
+        // Monta setor e bairro
+        const informacaoRegiao = [
+
+            endereco.setor,
+
+            endereco.bairro
+
+        ].filter(Boolean).join(" • ");
+
+
         card.innerHTML = `
+
             <div class="endereco-info">
 
                 <h4>
@@ -220,8 +231,16 @@ function carregarEnderecos(mapaId) {
                 </p>
 
                 <p class="bairro">
-                    ${endereco.bairro}
+                    ${informacaoRegiao || endereco.cidade}
                 </p>
+
+                ${endereco.observacao ? `
+
+                    <p class="observacao">
+                        ✎ ${endereco.observacao}
+                    </p>
+
+                ` : ""}
 
             </div>
 
@@ -233,6 +252,7 @@ function carregarEnderecos(mapaId) {
             >
                 ↗ Como chegar
             </a>
+
         `;
 
 
@@ -249,10 +269,13 @@ function carregarEnderecos(mapaId) {
 
 function montarDestino(endereco) {
 
-    // Se tiver coordenadas, utiliza a localização exata
+    // Prioriza coordenadas
     if (
+
         Number.isFinite(endereco.latitude) &&
+
         Number.isFinite(endereco.longitude)
+
     ) {
 
         return `${endereco.latitude},${endereco.longitude}`;
@@ -260,8 +283,26 @@ function montarDestino(endereco) {
     }
 
 
-    // Caso contrário, utiliza o endereço escrito
-    return `${endereco.rua}, ${endereco.numero}, ${endereco.bairro}`;
+    // Monta endereço completo
+    return [
+
+        endereco.rua,
+
+        endereco.numero,
+
+        endereco.bairro,
+
+        endereco.cidade,
+
+        endereco.estado,
+
+        endereco.cep
+
+    ]
+
+    .filter(Boolean)
+
+    .join(", ");
 
 }
 
@@ -281,13 +322,16 @@ function criarLinkRota(destino) {
     });
 
 
-    // Se o usuário já informou sua localização,
-    // utiliza ela como ponto de partida
+    // Utiliza localização do usuário,
+    // caso esteja disponível
     if (localizacaoUsuario) {
 
         parametros.set(
+
             "origin",
+
             `${localizacaoUsuario.latitude},${localizacaoUsuario.longitude}`
+
         );
 
     }
@@ -299,7 +343,7 @@ function criarLinkRota(destino) {
 
 
 /* =================================
-   VOLTAR PARA A PÁGINA INICIAL
+   VOLTAR PARA PÁGINA INICIAL
 ================================= */
 
 btnVoltar.addEventListener("click", () => {
@@ -310,9 +354,13 @@ btnVoltar.addEventListener("click", () => {
 
     mapaSelecionado = null;
 
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 
 });
@@ -324,7 +372,6 @@ btnVoltar.addEventListener("click", () => {
 
 btnLocalizacao.addEventListener("click", () => {
 
-    // Verifica se o navegador oferece geolocalização
     if (!navigator.geolocation) {
 
         alert("Seu navegador não suporta geolocalização.");
@@ -335,6 +382,9 @@ btnLocalizacao.addEventListener("click", () => {
 
 
     btnLocalizacao.textContent = "Localizando...";
+
+    btnLocalizacao.disabled = true;
+
 
     navigator.geolocation.getCurrentPosition(
 
@@ -352,16 +402,21 @@ btnLocalizacao.addEventListener("click", () => {
 
             btnLocalizacao.textContent = "✓ Localização encontrada";
 
+            btnLocalizacao.disabled = false;
+
 
             alert(
+
                 `Sua localização foi encontrada!\n\n` +
+
                 `Latitude: ${localizacaoUsuario.latitude}\n` +
+
                 `Longitude: ${localizacaoUsuario.longitude}`
+
             );
 
 
-            // Atualiza os links caso esteja
-            // visualizando algum mapa
+            // Atualiza links dos endereços
             if (mapaSelecionado) {
 
                 carregarEnderecos(mapaSelecionado.id);
@@ -376,19 +431,32 @@ btnLocalizacao.addEventListener("click", () => {
 
             btnLocalizacao.textContent = "⌖ Minha localização";
 
+            btnLocalizacao.disabled = false;
+
+
             let mensagem = "Não foi possível obter sua localização.";
 
+
             if (erro.code === 1) {
+
                 mensagem = "Você não autorizou o acesso à localização.";
+
             }
+
 
             if (erro.code === 2) {
+
                 mensagem = "Sua localização está indisponível.";
+
             }
 
+
             if (erro.code === 3) {
+
                 mensagem = "O tempo para localizar você terminou.";
+
             }
+
 
             alert(mensagem);
 
@@ -397,9 +465,13 @@ btnLocalizacao.addEventListener("click", () => {
 
         // CONFIGURAÇÕES
         {
+
             enableHighAccuracy: true,
+
             timeout: 10000,
+
             maximumAge: 0
+
         }
 
     );
