@@ -172,11 +172,6 @@ prototipo-1.0/
 │   ├── style.css
 │   └── enderecos.css
 │
-├── js/
-│   ├── main.js
-│   ├── mapas.js
-│   └── localizacao.js
-│
 ├── data/
 │   └── enderecos.js
 │

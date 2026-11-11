@@ -1,0 +1,39 @@
+.mapas {
+    width: 100%;
+    padding: 10px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mapas .mapa {
+    border: 2px solid var(--dourado);
+    padding: 10px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.mapa img {
+    width: 200px;
+    border-radius: 15px;
+}
+
+.mapa .btn {
+    width: 90%;
+    padding: 10px 30px;
+    background-color: var(--roxo);
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 7px;
+    transition: all .3s ease;
+    box-shadow: none;
+}
+
+.mapa .btn:hover {
+    transform: translate(3px, -4px);
+    box-shadow: -3px 3px 6px var(--dourado);
+}
