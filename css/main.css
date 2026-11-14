@@ -5,35 +5,27 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 10px;
 }
 
 .mapas .mapa {
-    border: 2px solid var(--dourado);
+    border: 1px solid var(--dourado);
     padding: 10px;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    background-image: url('/IMG/img-teste.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.mapa img {
-    width: 200px;
-    border-radius: 15px;
-}
-
-.mapa .btn {
-    width: 90%;
-    padding: 10px 30px;
-    background-color: var(--roxo);
-    text-align: center;
+.mapa .letra-grande {
     text-transform: uppercase;
-    border-radius: 7px;
-    transition: all .3s ease;
-    box-shadow: none;
-}
-
-.mapa .btn:hover {
-    transform: translate(3px, -4px);
-    box-shadow: -3px 3px 6px var(--dourado);
+    font-family: "BBH Bogle", sans-serif;
+    font-size: 3rem;
+    color: black;
+    
 }
