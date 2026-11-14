@@ -9,23 +9,19 @@
 }
 
 .mapas .mapa {
-    border: 1px solid var(--dourado);
+    border: 2px solid var(--borda);
     padding: 10px;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    background-image: url('/IMG/img-teste.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .mapa .letra-grande {
     text-transform: uppercase;
     font-family: "BBH Bogle", sans-serif;
     font-size: 3rem;
-    color: black;
+    color: var(--dourado);
     
 }
